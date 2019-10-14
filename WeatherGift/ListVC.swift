@@ -58,6 +58,20 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = locationsArray[indexPath.row]
         return cell
     }
-    
+    //MARK:- TableView editing functions
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            locationsArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+            let itemToMove = locationsArray[sourceIndexPath.row]
+            locationsArray.remove(at: sourceIndexPath.row )
+            locationsArray.insert(itemToMove, at: destinationIndexPath.row)
+        }
+        
+       
+        
+    }
     
 }
