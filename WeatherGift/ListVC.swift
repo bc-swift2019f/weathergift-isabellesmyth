@@ -64,14 +64,45 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
             locationsArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-            let itemToMove = locationsArray[sourceIndexPath.row]
-            locationsArray.remove(at: sourceIndexPath.row )
-            locationsArray.insert(itemToMove, at: destinationIndexPath.row)
-        }
         
-       
         
     }
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let itemToMove = locationsArray[sourceIndexPath.row]
+        locationsArray.remove(at: sourceIndexPath.row )
+        locationsArray.insert(itemToMove, at: destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        if indexPath.row != 0 {
+//            return true
+//        } else {
+//            return false
+//        }
+//
+        return (indexPath.row != 0 ? true : false)
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+//        if indexPath.row != 0 {
+//            return true
+//        } else {
+//            return false
+//        }
+//
+        return (indexPath.row != 0 ? true : false)
+    }
+        
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+//        if proposedDestinationIndexPath.row == 0 {
+//            return sourceIndexPath
+//        } else {
+//            return proposedDestinationIndexPath
+//        }
+        
+        return (proposedDestinationIndexPath.row == 0 ? sourceIndexPath : proposedDestinationIndexPath)
+    }
+    
+    
     
 }
