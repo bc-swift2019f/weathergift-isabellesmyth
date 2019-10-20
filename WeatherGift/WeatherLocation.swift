@@ -14,6 +14,7 @@ class WeatherLocation {
     var coordinates = ""
     var currentTemp = "--"
     var currentSummary = ""
+    var currentIcon = ""
     func getWeather(completed: @escaping () -> ()){
         let weatherURL = urlBase + urlAPIKey + coordinates
      
@@ -34,6 +35,12 @@ class WeatherLocation {
                     
                 } else {
                     print("could not return a summary")
+                }
+                if let icon = json["daily"]["icon"].string {
+                    self.currentIcon = icon
+                    
+                } else {
+                    print("could not return an icon")
                 }
             case .failure(let error):
                 print(error)
