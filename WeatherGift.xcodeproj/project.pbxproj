@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		742D055F2354D7F900B254C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 742D055D2354D7F900B254C3 /* LaunchScreen.storyboard */; };
 		742D056D2354DF9300B254C3 /* ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D056C2354DF9300B254C3 /* ListVC.swift */; };
 		742D056F2354E31300B254C3 /* PageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D056E2354E31300B254C3 /* PageVC.swift */; };
+		743B2D25235CC922003730D1 /* WeatherLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743B2D24235CC922003730D1 /* WeatherLocation.swift */; };
 		74FA651A2354ED840080E902 /* DetailVC1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FA65192354ED840080E902 /* DetailVC1.swift */; };
 		C8CCDCB8C6F1E1EFBE2C9742 /* Pods_WeatherGift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070B4EE146A294A7E1F7C531 /* Pods_WeatherGift.framework */; };
 /* End PBXBuildFile section */
@@ -31,6 +32,7 @@
 		742D05602354D7F900B254C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		742D056C2354DF9300B254C3 /* ListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVC.swift; sourceTree = "<group>"; };
 		742D056E2354E31300B254C3 /* PageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageVC.swift; sourceTree = "<group>"; };
+		743B2D24235CC922003730D1 /* WeatherLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocation.swift; sourceTree = "<group>"; };
 		74FA65192354ED840080E902 /* DetailVC1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,7 +54,6 @@
 				2E69598BFF062FEF5600E178 /* Pods-WeatherGift.debug.xcconfig */,
 				6A57FF6AB8A365F506ABB822 /* Pods-WeatherGift.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -79,6 +80,7 @@
 			children = (
 				742D05522354D7F700B254C3 /* AppDelegate.swift */,
 				742D056E2354E31300B254C3 /* PageVC.swift */,
+				743B2D24235CC922003730D1 /* WeatherLocation.swift */,
 				742D056C2354DF9300B254C3 /* ListVC.swift */,
 				74FA65192354ED840080E902 /* DetailVC1.swift */,
 				742D05542354D7F700B254C3 /* SceneDelegate.swift */,
@@ -236,6 +238,7 @@
 				74FA651A2354ED840080E902 /* DetailVC1.swift in Sources */,
 				742D05532354D7F700B254C3 /* AppDelegate.swift in Sources */,
 				742D05552354D7F700B254C3 /* SceneDelegate.swift in Sources */,
+				743B2D25235CC922003730D1 /* WeatherLocation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +386,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9J8SP8M32V;
 				INFOPLIST_FILE = WeatherGift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -402,6 +406,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9J8SP8M32V;
 				INFOPLIST_FILE = WeatherGift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
