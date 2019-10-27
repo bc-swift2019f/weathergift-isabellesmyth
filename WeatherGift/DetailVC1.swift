@@ -24,6 +24,7 @@ class DetailVC1: UIViewController {
     @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var currentImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var currentPage = 0
     var locationsArray = [WeatherLocation]()
@@ -34,6 +35,8 @@ class DetailVC1: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
         if currentPage != 0 {
             self.locationsArray[currentPage].getWeather {
                 self.updateUserInterface()
@@ -135,6 +138,19 @@ extension DetailVC1: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    
+}
+
+extension DetailVC1: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 24
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let hourlyCell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyCell", for: indexPath)
+        return hourlyCell
     }
     
     
