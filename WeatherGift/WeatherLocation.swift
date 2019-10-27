@@ -10,7 +10,12 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 class WeatherLocation {
-    
+    struct HourlyForcast {
+        var hourlyTime: Double
+        var hourlyTemperature: Double
+        var hourlyIcon: String
+        var hourlyPrecipProp: Double
+    }
     struct DailyForcast {
         var dailyMaxTemp: Double
         var dailyMinTemp: Double
@@ -27,7 +32,7 @@ class WeatherLocation {
     var currentTime = 0.0
     var timeZone = ""
     var dailyForcastArray = [DailyForcast]()
-    
+    var hourlyForcastArray = [HourlyForcast]()
 
     
 
@@ -84,6 +89,18 @@ class WeatherLocation {
                     let newDailyForcast = DailyForcast(dailyMaxTemp: maxTemp, dailyMinTemp: minTemp, dailySummary: dailySummary, dailyDate: dateValue, dailyIcon: icon)
                     self.dailyForcastArray.append(newDailyForcast)
                 }
+                
+                let hourlyDataArray = json["hourly"]["data"]
+                self.hourlyForcastArray = []
+                for hour in 1...hourlyDataArray.count-1 {
+                    let hourlyTime = json["hourly"]["data"][hour]["time"].doubleValue
+                    let hourlyTemperature = json["hourly"]["data"][hour]["temperature"].doubleValue
+                    let hourlyPrecipProb = json["hourly"]["data"][hour]["precipProbability"].doubleValue
+                    let hourlyIcon = json["hourly"]["data"][hour]["icon"].stringValue
+                    let newHourlyForcast = HourlyForcast(hourlyTime: hourlyTime, hourlyTemperature: hourlyTemperature, hourlyIcon: hourlyIcon, hourlyPrecipProp: hourlyPrecipProb)
+                    self.hourlyForcastArray.append(newHourlyForcast)
+                }
+   
             case .failure(let error):
                 print(error)
             }
