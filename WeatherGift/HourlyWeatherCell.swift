@@ -21,7 +21,10 @@ class HourlyWeatherCell: UICollectionViewCell {
     @IBOutlet weak var raindropImage: UIImageView!
     @IBOutlet weak var hourlyIcon: UIImageView!
     
-    func update(with hourlyForcast: WeatherLocation.HourlyForcast, timeZone: String){
+    func update(with hourlyForcast: WeatherDetail.HourlyForcast, timeZone: String){
+        
+       
+        
         hourlyTemp.text = String(format: "%2.f", hourlyForcast.hourlyTemperature) + "°"
         hourlyIcon.image = UIImage(named:"small-" + hourlyForcast.hourlyIcon)
         let precipProb = hourlyForcast.hourlyPrecipProp * 100

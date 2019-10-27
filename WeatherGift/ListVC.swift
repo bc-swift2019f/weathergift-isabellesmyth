@@ -11,17 +11,19 @@ import GooglePlaces
 class ListVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var locationsArray = [WeatherLocation]()
-    var currentPage = 0
-    
+  
     @IBOutlet weak var editBarButton: UIBarButtonItem!
     @IBOutlet weak var addBarButton: UIBarButtonItem!
+    var locationsArray = [WeatherLocation]()
+    var currentPage = 0
+      
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -30,6 +32,16 @@ class ListVC: UIViewController {
             currentPage = (tableView.indexPathForSelectedRow?.row)!
             destination.currentPage = currentPage
             destination.locationsArray = locationsArray
+        }
+    }
+    
+    func saveLocations(){
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(locationsArray) {
+            UserDefaults.standard.set(encoded, forKey: "locationsArray")
+        }
+        else {
+            print("ERROR: saving encoded did not work")
         }
     }
     
@@ -48,6 +60,7 @@ class ListVC: UIViewController {
     @IBAction func addBarButtonPressed(_ sender: UIBarButtonItem) {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
+        
         present(autocompleteController, animated: true, completion: nil)
     }
     
@@ -68,6 +81,7 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             locationsArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            saveLocations()
         }
         
         
@@ -76,6 +90,7 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
         let itemToMove = locationsArray[sourceIndexPath.row]
         locationsArray.remove(at: sourceIndexPath.row )
         locationsArray.insert(itemToMove, at: destinationIndexPath.row)
+        saveLocations()
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -110,13 +125,13 @@ extension ListVC: UITableViewDelegate, UITableViewDataSource {
     
     func updateTable(place: GMSPlace){
         let newIndexPath = IndexPath(row: locationsArray.count, section: 0)
-        var newWeatherLocation = WeatherLocation()
-        newWeatherLocation.name = place.name! //added ! due to error
         let longitude = place.coordinate.longitude
         let latitude = place.coordinate.latitude
-        newWeatherLocation.coordinates = " \(latitude), \(longitude)"
+        let newCoordinates = "\(latitude), \(longitude)"
+        let newWeatherLocation = WeatherLocation(name: place.name!, coordinates: newCoordinates)
         locationsArray.append(newWeatherLocation)
         tableView.insertRows(at: [newIndexPath], with: .automatic)
+        saveLocations()
     }
     
 }
