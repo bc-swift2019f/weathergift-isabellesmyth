@@ -15,6 +15,7 @@ class DetailVC1: UIViewController {
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var currentImage: UIImageView!
+    
     var currentPage = 0
     var locationsArray = [WeatherLocation]()
     var locationManager: CLLocationManager!
@@ -37,13 +38,23 @@ class DetailVC1: UIViewController {
         }
     }
     func updateUserInterface(){
-        locationLabel.text = locationsArray[currentPage].name
-        dateLabel.text = locationsArray[currentPage].coordinates
-        temperatureLabel.text = locationsArray[currentPage].currentTemp
-        summaryLabel.text = locationsArray[currentPage].currentSummary
-        currentImage.image = UIImage(named: locationsArray[currentPage].currentIcon)
+        let location = locationsArray[currentPage]
+        locationLabel.text = location.name
+        let dateString = formatTimeForTimeZone(unixDate: location.currentTime, timeZone: location.timeZone)
+        dateLabel.text = dateString
+        temperatureLabel.text = location.currentTemp
+        summaryLabel.text = location.currentSummary
+        currentImage.image = UIImage(named: location.currentIcon)
         
         
+    }
+    func formatTimeForTimeZone(unixDate: TimeInterval, timeZone: String) -> String {
+        let usableDate = Date(timeIntervalSince1970: unixDate)
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MM dd, y"
+        dateFormatter.timeZone = TimeZone(identifier: timeZone )
+        let dateString = dateFormatter.string(from: usableDate)
+        return dateString
     }
 }
 
@@ -80,7 +91,7 @@ extension DetailVC1: CLLocationManagerDelegate {
         let currentLatitude = currentLocation.coordinate.latitude
         let currentLongitude = currentLocation.coordinate.longitude
         let currentCoordinates = "\(currentLatitude),\(currentLongitude)"
-        dateLabel.text = currentCoordinates
+        
         geoCoder.reverseGeocodeLocation(currentLocation, completionHandler: {
             placemarks, error in
             if placemarks != nil {

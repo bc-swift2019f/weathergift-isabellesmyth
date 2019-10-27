@@ -15,6 +15,9 @@ class WeatherLocation {
     var currentTemp = "--"
     var currentSummary = ""
     var currentIcon = ""
+    var currentTime = 0.0
+    var timeZone = ""
+    
     func getWeather(completed: @escaping () -> ()){
         let weatherURL = urlBase + urlAPIKey + coordinates
      
@@ -41,6 +44,19 @@ class WeatherLocation {
                     
                 } else {
                     print("could not return an icon")
+                }
+                if let timeZone = json["timezone"].string {
+                    self.timeZone = timeZone
+                    
+                } else {
+                    print("could not return a time zone")
+                }
+                
+                if let time = json["currently"]["time"].double {
+                    self.currentTime = time
+                    
+                } else {
+                    print("could not return a time")
                 }
             case .failure(let error):
                 print(error)
