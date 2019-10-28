@@ -29,7 +29,7 @@ class PageVC: UIPageViewController {
         
         locationsArray.append(newLocation)
         loadLocations()
-        print(locationsArray[1].coordinates)
+       
         setViewControllers([createDetailVC(forPage: 0)], direction: .forward, animated: false, completion: nil)
     }
     
